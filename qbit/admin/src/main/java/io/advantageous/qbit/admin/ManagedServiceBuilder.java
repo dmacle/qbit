@@ -207,7 +207,7 @@ public class ManagedServiceBuilder {
     /**
      * Turn on Logging Mapped Diagnostic Context.
      */
-    private boolean enableLoggingMappedDiagnosticContext = Sys.sysProp(ManagedServiceBuilder.class.getName()
+    private boolean enableLogMDContext = Sys.sysProp(ManagedServiceBuilder.class.getName()
             + ".enableLoggingMappedDiagnosticContext", false);
 
 
@@ -291,9 +291,9 @@ public class ManagedServiceBuilder {
      *
      * @return this
      */
-    public ManagedServiceBuilder enableLoggingMappedDiagnosticContext() {
+    public ManagedServiceBuilder enableLogMDContext() {
         this.enableRequestChain = true;
-        this.enableLoggingMappedDiagnosticContext = true;
+        this.enableLogMDContext = true;
         return this;
     }
 
@@ -303,8 +303,8 @@ public class ManagedServiceBuilder {
      * @param requestHeaders request headers
      * @return this, fluent
      */
-    public ManagedServiceBuilder enableLoggingMappedDiagnosticContext(final String... requestHeaders) {
-        return enableLoggingMappedDiagnosticContext(Sets.set(requestHeaders));
+    public ManagedServiceBuilder enableLogMDContext(final String... requestHeaders) {
+        return enableLogMDContext(Sets.set(requestHeaders));
     }
 
     /**
@@ -313,9 +313,9 @@ public class ManagedServiceBuilder {
      * @param requestHeaders request headers to track in the MDC.
      * @return this
      */
-    public ManagedServiceBuilder enableLoggingMappedDiagnosticContext(final Set<String> requestHeaders) {
+    public ManagedServiceBuilder enableLogMDContext(final Set<String> requestHeaders) {
         this.enableRequestChain = true;
-        this.enableLoggingMappedDiagnosticContext = true;
+        this.enableLogMDContext = true;
         this.requestHeadersToTrackForMappedDiagnosticContext = Collections.unmodifiableSet(requestHeaders);
         return this;
     }
@@ -337,18 +337,18 @@ public class ManagedServiceBuilder {
      * @return logging MDC enabled or not
      */
     public boolean isEnableLoggingMappedDiagnosticContext() {
-        return enableLoggingMappedDiagnosticContext;
+        return enableLogMDContext;
     }
 
     /**
      * Enable or disable logging MDC.
      *
-     * @param enableLoggingMappedDiagnosticContext enableLoggingMappedDiagnosticContext
+     * @param enableLogMDContext enableLoggingMappedDiagnosticContext
      * @return this
      */
     public ManagedServiceBuilder setEnableLoggingMappedDiagnosticContext(
-            final boolean enableLoggingMappedDiagnosticContext) {
-        this.enableLoggingMappedDiagnosticContext = enableLoggingMappedDiagnosticContext;
+            final boolean enableLogMDContext) {
+        this.enableLogMDContext = enableLogMDContext;
         return this;
     }
 
@@ -1275,7 +1275,7 @@ public class ManagedServiceBuilder {
     private Interceptors configureInterceptors() {
         Interceptors interceptors = new Interceptors();
         SetupMdcForHttpRequestInterceptor setupMdcForHttpRequestInterceptor;
-        if (enableLoggingMappedDiagnosticContext) {
+        if (enableLogMDContext) {
             enableRequestChain = true;
             if (requestHeadersToTrackForMappedDiagnosticContext != null &&
                     requestHeadersToTrackForMappedDiagnosticContext.size() > 0) {
